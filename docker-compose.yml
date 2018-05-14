@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/.docker/stdb/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: stdb
