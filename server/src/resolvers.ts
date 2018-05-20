@@ -4,12 +4,28 @@ import { User } from "./entity/User";
 
 export const resolvers: ResolverMap = {
   Query: {
-    hello: (_, { name }: GQL.IHelloOnQueryArguments) => `Bye ${name || "World"}`
+    user: (_, { id }: GQL.IUserOnQueryArguments) => User.findOne(id),
+    users: (_, {}) => User.find()
   },
   Mutation: {
-    register: async (
+    login: async (_, { email, password }: GQL.ILoginOnMutationArguments) => {
+      const user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        return false;
+      }
+
+      const valid = await bcrypt.compare(password, user.password);
+
+      if (!valid) {
+        return false;
+      }
+
+      return true;
+    },
+    createUser: async (
       _,
-      { email, password }: GQL.IRegisterOnMutationArguments
+      { email, password }: GQL.ICreateUserOnMutationArguments
     ) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = User.create({
