@@ -3,12 +3,38 @@ type User {
   email: String!
 }
 
+type Tournament {
+  id: Int!
+  name: String!
+  description: String!
+  startDate: String!
+  amountTeams: Int!
+  user: User!
+}
+
 type Query {
   user(id: Int!): User!
   users: [User!]!
+  tournaments: [Tournament!]!
+  tournament(id: Int!): Tournament!
 }
 
 type Mutation {
   login(email: String!, password: String!): Boolean
   createUser(email: String!, password: String!): Boolean
+  createTournament(
+    userId: Int!
+    name: String!
+    description: String!
+    startDate: String!
+    amountTeams: Int!
+  ): Tournament!
+  updateTournament(
+    id: Int!
+    name: String!
+    description: String
+    startDate: String
+    amountTeams: Int!
+  ): Tournament
+  removeTournament(id: Int!): Tournament
 }
