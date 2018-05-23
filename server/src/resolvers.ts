@@ -36,33 +36,23 @@ export const resolvers: ResolverMap = {
       await user.save();
       return true;
     },
-    createTournament: async (
-      _,
-      { userId, name, description, startDate, amountTeams }
-    ) => {
+    createTournament: async (_, { userId, ...args }) => {
       const user = await User.findOne(userId);
       if (!user) {
         return;
       }
 
-      const tournament = Tournament.create({
-        name,
-        description,
-        startDate,
-        amountTeams
-      });
+      const tournament = Tournament.create({ ...args, userId });
+      tournament.user = user;
 
       const errors = await validate(tournament);
       if (errors.length > 0) {
         throw new Error(`Validation failed!`);
       }
 
-      await tournament.save();
+      const result = await tournament.save();
 
-      user.tournaments = [tournament];
-      await user.save();
-
-      return tournament;
+      return result || null;
     },
     updateTournament: async (_, { ...args }) => {
       // for preventing save operation to insert a new row
