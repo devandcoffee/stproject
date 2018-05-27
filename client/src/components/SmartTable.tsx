@@ -2,6 +2,11 @@ import * as React from 'react';
 
 import { Button, Table } from 'antd';
 
+export interface ITableAction {
+  action: string;
+  icon: string;
+}
+
 export const SHOW_RECORD = { action: 'show', icon: 'search' };
 export const EDIT_RECORD = { action: 'edit', icon: 'edit' };
 export const REMOVE_RECORD = { action: 'remove', icon: 'delete' };
