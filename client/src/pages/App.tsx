@@ -3,7 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 import { App, PrivateRoute } from '../components/';
 
-import { Tournaments } from './Tournaments';
+import { Tournaments, TournamentsForm } from './Tournaments';
 import { Teams } from './Teams';
 import Login from './Login/Login';
 
@@ -20,6 +20,16 @@ const AppPage: React.SFC = () => (
         exact={true}
         path={paths.TOURNAMENTS_PATH}
         component={Tournaments}
+      />
+      <PrivateRoute
+        exact={true}
+        path={paths.TOURNAMENTS_ADD}
+        component={TournamentsForm}
+      />
+      <PrivateRoute
+        exact={true}
+        path={paths.TOURNAMENTS_EDIT}
+        component={TournamentsForm}
       />
       <PrivateRoute exact={true} path={paths.TEAMS_PATH} component={Teams} />
       <PrivateRoute render={DefaultPath} />
