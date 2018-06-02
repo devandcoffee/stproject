@@ -5,7 +5,7 @@ import PrivateRoute from './PrivateRoute';
 
 import { isLoggedIn, getToken } from '../../auth';
 
-export interface Props extends RouteProps {
+export interface IProps extends RouteProps {
   isLoggedin: boolean | null;
   token: string | null;
 }
@@ -17,10 +17,14 @@ class PrivateRouteContainer extends React.Component<RouteProps> {
   };
 
   render() {
-    const { isLoggedIn, token } = this.state;
+    const { token } = this.state;
 
     return (
-      <PrivateRoute isLoggedin={isLoggedIn} token={token} {...this.props} />
+      <PrivateRoute
+        isLoggedin={this.state.isLoggedIn}
+        token={token}
+        {...this.props}
+      />
     );
   }
 }

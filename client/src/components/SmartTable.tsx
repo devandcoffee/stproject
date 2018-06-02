@@ -11,11 +11,13 @@ export const SHOW_RECORD = { action: 'show', icon: 'search' };
 export const EDIT_RECORD = { action: 'edit', icon: 'edit' };
 export const REMOVE_RECORD = { action: 'remove', icon: 'delete' };
 
-const ACTIONS_OBJ = (emit: Function) => ({
+const ACTIONS_OBJ = (
+  emit: (a: string, b: object, c: any, d: ITableAction) => void,
+) => ({
   title: 'Action',
   dataIndex: '',
   key: 'x',
-  render: (text: string, record: Object, index: any) => (
+  render: (text: string, record: object, index: any) => (
     <span>
       <Button
         icon="search"
